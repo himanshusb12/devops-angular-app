@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<body>
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+
+
+      <form (ngSubmit)="authenticate()" #loginForm="ngForm">
+        <input type="text" id="username" [(ngModel)]="username" name="username" #userNameVar="ngModel"
+          placeholder="username" required minlength="5"
+          [ngClass]="{ 'is-invalid': (userNameVar.touched || userNameVar.dirty) && !userNameVar.valid }">
+        <span class="invalid-feedback">
+          <span *ngIf="userNameVar.touched && userNameVar.errors?.required">username is required</span>
+          <span *ngIf="userNameVar.touched && userNameVar.errors?.minlength">username must contain atleast 5
+            characters</span>
+        </span>
+
+        <p></p>
+        <input type="password" id="password" [(ngModel)]="password" name="password" #passwordVar="ngModel"
+          placeholder="password" required minlength="5" pattern="[a-zA-Z0-9]+"
+          [ngClass]="{ 'is-invalid': (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid }">
+        <span class="invalid-feedback">
+          <span *ngIf="passwordVar.touched && passwordVar.errors?.required">password is required</span>
+          <span *ngIf="passwordVar.touched && passwordVar.errors?.minlength">password must contain atleast 5
+            characters</span>
+        </span>
+
+        <span class="invalid-feedback" *ngIf="passwordVar.touched && passwordVar.errors?.pattern">password must contain letters or
+          numbers</span>
+        <p></p>
+        <button class="btn btn-lg btn-primary" type="submit" [disabled]="!loginForm.valid">Log In</button>
+        <p></p>
+      </form>
+
+      <div id="formFooter">
+        <span *ngIf="message !== ''" style="color: #eb0404;">{{message}}</span>
+      </div>
+
+    </div>
+  </div>
+</body>
+<app-footer></app-footer>
